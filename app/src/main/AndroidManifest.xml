@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Exam_ImageViewer">
-        <activity android:name=".EnlargeActivity"></activity>
+        <activity android:name=".EnlargeActivity" />
         <activity android:name=".GalleryActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>

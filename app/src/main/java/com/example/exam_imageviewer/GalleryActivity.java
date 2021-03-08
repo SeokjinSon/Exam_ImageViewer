@@ -6,11 +6,16 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.ColorFilter;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.GridLayout;
+import android.widget.GridView;
 import android.widget.ImageView;
 
 public class GalleryActivity extends AppCompatActivity {
@@ -25,8 +30,8 @@ public class GalleryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_gallery);
 
         initApp();
-        getImageId();
-        showImage();
+        get_ImageId();
+        show_Image();
     }
 
     public void initApp() {
@@ -36,16 +41,35 @@ public class GalleryActivity extends AppCompatActivity {
         moveToThird         = new Intent(GalleryActivity.this, EnlargeActivity.class);
     }
 
-    public void getImageId() {
-        for(int i=0; i<10; i++)
-            imgResIds[i] =  getResources().getIdentifier("marvel" + String.valueOf(i), "drawable", getPackageName());
+    public void get_ImageId() {
+        for(int i=0; i<10; i++) {
+            imgResIds[i] =  getResources().getIdentifier("marvel_" + String.valueOf(i), "drawable", getPackageName());
+        }
+
     }
 
-    public void showImage() {
+    public void show_Image() {
         for(int i=0; i<10; i++) {
-            ImageView imgView = new ImageView(this);
-            imgView.setImageDrawable(appRes.getDrawable(imgResIds[i]));
-            galleryViewLayout.addView(imgView);
+            galleryViewLayout.addView(make_ImageView(i));
         }
+    }
+
+    public ImageView make_ImageView(int i) {
+        ImageView imgView = new ImageView(this);
+        Bitmap bmp = BitmapFactory.decodeResource(appRes, imgResIds[i]);
+        bmp = Bitmap.createScaledBitmap(bmp, 320, 240, false);
+
+        imgView.setId(i);
+        imgView.setAdjustViewBounds(true);
+        imgView.setImageBitmap(bmp);
+        //imgView.setImageDrawable(appRes.getDrawable(imgResIds[i]));
+        imgView.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Log.i(String.valueOf(v.getId()), "클릭한 이미지 뷰 값");
+                moveToThird.putExtra("picture_Number", imgResIds[v.getId()]);
+                startActivity(moveToThird);
+            }
+        });
+        return imgView;
     }
 }
