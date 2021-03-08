@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Exam_ImageViewer</string>
+    <string name="btn_press">Click</string>
+    <string name="title">Gallery App</string>
+</resources>
