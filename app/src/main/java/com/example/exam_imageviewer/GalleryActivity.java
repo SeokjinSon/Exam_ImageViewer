@@ -17,12 +17,13 @@ import android.view.View;
 import android.widget.GridLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 public class GalleryActivity extends AppCompatActivity {
-    private Resources           appRes;
-    private GridLayout          galleryViewLayout;
-    private int[]               imgResIds;
-    private Intent              moveToThird;
+    private Resources                   appRes;
+    private GridLayout                  galleryViewLayout;
+    private int[]                       imgResIds;
+    private Intent                      moveToThird;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +38,7 @@ public class GalleryActivity extends AppCompatActivity {
     public void initApp() {
         appRes              = this.getResources();
         galleryViewLayout   = findViewById(R.id.galleryViewLayout);
+
         imgResIds           = new int[10];
         moveToThird         = new Intent(GalleryActivity.this, EnlargeActivity.class);
     }
@@ -57,7 +59,7 @@ public class GalleryActivity extends AppCompatActivity {
     public ImageView make_ImageView(int i) {
         ImageView imgView = new ImageView(this);
         Bitmap bmp = BitmapFactory.decodeResource(appRes, imgResIds[i]);
-        bmp = Bitmap.createScaledBitmap(bmp, 320, 240, false);
+        bmp = Bitmap.createScaledBitmap(bmp, 360, 340, false);
 
         imgView.setId(i);
         imgView.setAdjustViewBounds(true);
